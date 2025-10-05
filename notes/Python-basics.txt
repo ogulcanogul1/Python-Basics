@@ -1,0 +1,112 @@
+conda create -p venv python==3.12
+
+🚩 1. Normalde ne oluyor?
+
+Sen düz bir Python yüklediğinde (python.org ya da Windows Store üzerinden), bilgisayara tek bir Python kurulmuş oluyor.
+
+Bütün projelerin aynı Python’u ve aynı kütüphane klasörünü (site-packages) kullanıyor.
+
+Diyelim ki proje A’da numpy==1.20, proje B’de numpy==1.25 lazım → Çakışıyor ❌
+
+Bir projede kütüphane güncelledin, diğer proje bozulabiliyor.
+
+🚩 2. Conda (veya venv) ortamı ne yapıyor?
+
+Bir izole Python dünyası oluşturuyor.
+
+Her proje için ayrı Python sürümü ve ayrı kütüphaneler seti oluyor.
+
+Mesela:
+
+projA/venv → python 3.12 + numpy 1.20
+
+projB/venv → python 3.9 + numpy 1.25
+
+Birbirlerini hiç etkilemiyorlar ✅
+
+🚩 3. Conda’nın farkı ne?
+
+venv (Python’un kendi modülü) → sadece Python ve pip yönetiyor.
+
+conda → Python + C/C++ bağımlılıkları + diğer dillerin paketleri (mesela R, Julia) yönetebiliyor.
+
+Yani conda install numpy dediğinde, sadece Python kütüphanesini değil, altındaki C kütüphanelerini de beraber kuruyor.
+
+Bu yüzden numpy, pandas, scipy, tensorflow, pytorch gibi kütüphaneler conda’da çok daha sorunsuz kurulur.
+
+
+conda activate ./venv => seçilip pip install yap yoksa globale kuruyor
+
+pip install ipykernel
+
+pip install notebook
+
+--------------------------------------------------------------------------------------------------------------------
+
+						Requirements.txt Kullanımı 
+
+1️⃣ requirements.txt oluştur
+
+Bir dosya açıp içine şunları yazabilirsin (örnek):
+
+ipykernel
+notebook
+jupyter
+pandas
+numpy
+matplotlib
+
+
+İstersen belirli sürüm de yazabilirsin:
+
+ipykernel==6.29.5
+notebook==7.2.2
+
+2️⃣ Ortamını (conda veya venv) aktive et
+
+Eğer conda kullandıysan:
+
+conda activate venv
+
+
+Eğer venv kullandıysan:
+
+.\venv\Scripts\activate   # Windows
+source venv/bin/activate  # Linux/Mac
+
+3️⃣ Paketleri yükle
+
+Aktif ortamda şu komutu çalıştır:
+
+pip install -r requirements.txt
+
+
+Bu komut, requirements.txt içindeki tüm bağımlılıkları tek seferde indirir ve kurar ✅
+
+4️⃣ Kernel’i VS Code’a tanıt
+
+Son olarak Jupyter kernelini aktif ortamına bağlaman gerekebilir:
+
+python -m ipykernel install --user --name=venv --display-name "Python (venv)"
+
+Sonra VS Code’un sağ üst köşesindeki Select Kernel menüsünden "Python (venv)" olanı seçebilirsin.
+
+--------------------------------------------------------------------------------------------------------------------
+
+					Proje Başlangıç Yolları 
+1.YOL
+
+python -m venv myenv
+
+myenv/Scripts/activate
+
+artık pip install vs yapılabilir.
+
+pip install -r requirements.txt
+
+--------------------------------------------------------------------------------------------------------------------
+
+2.YOL
+conda -create -p venv1 python==3.10 -y
+
+conda activate venv1

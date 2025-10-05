@@ -1,0 +1,12 @@
+ipykernel
+notebook
+numpy
+pandas
+matplotlib
+seaborn
+flask
+streamlit
+scipy
+statsmodels
+scikit-learn
+missingno
